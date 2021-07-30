@@ -16,3 +16,6 @@
 [submodule "boolector"]
 	path = boolector
 	url = https://github.com/boolector/boolector
+[submodule "super-prove-build"]
+	path = super-prove-build
+	url = https://github.com/sterin/super-prove-build

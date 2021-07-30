@@ -8,8 +8,8 @@ SYMBIYOSYS_DESTDIR=/tmp/formal/
 mkdir -p ${SYMBIYOSYS_DESTDIR}/bin
 
 function super_prove () {
-	hg clone -r d7b71160dddb https://bitbucket.org/sterin/super_prove_build || true
-	cd super_prove_build
+	#hg clone -r d7b71160dddb https://bitbucket.org/sterin/super_prove_build || true
+	cd super-prove-build
 	mkdir -p build
 
 	cd abc-zz
@@ -24,17 +24,15 @@ function super_prove () {
 	ninja package
 
 	# install
-	mkdir -p ~/opt/formal
-	tar xzf super_prove*.tar.gz -C ~/opt/formal/
+	tar xzf super_prove*.tar.gz -C ${SYMBIYOSYS_DESTDIR}
 	cd .. # build
 
 	# install wrapper
-	mkdir -p ${SYMBIYOSYS_DESTDIR}/bin
 	wget -nc -O ${SYMBIYOSYS_DESTDIR}/bin/suprove https://bitbucket.org/sterin/super_prove_build/issues/attachments/4/sterin/super_prove_build/1565269491.6/4/suprove
 	chmod +x ${SYMBIYOSYS_DESTDIR}/bin/suprove
 	sed -i 's@/usr/local@${SYMBIYOSYS_DESTDIR}@' ${SYMBIYOSYS_DESTDIR}/bin/suprove
 
-	cd .. # super_prove_build
+	cd .. # super-prove-build
 }
 
 function extavy () {
@@ -58,6 +56,8 @@ sudo apt-get install build-essential clang bison flex libreadline-dev \
                      xdot pkg-config python python3 libftdi-dev gperf \
                      libboost-program-options-dev autoconf libgmp-dev \
                      cmake
+
+git submodule update --init --remote --recursive
 
 super_prove
 
