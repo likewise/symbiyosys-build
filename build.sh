@@ -3,7 +3,7 @@ set -e
 set -e -o pipefail
 
 SYMBIYOSYS_DESTDIR=$HOME/opt/formal
-SYMBIYOSYS_DESTDIR=/tmp/formal
+#SYMBIYOSYS_DESTDIR=/tmp/formal
 
 mkdir -p ${SYMBIYOSYS_DESTDIR}/bin
 
@@ -78,7 +78,7 @@ sudo apt-get install python-dev python3-dev
 
 cd yosys
 make -j$(nproc)
-make install DESTDIR=${SYMBIYOSYS_DESTDIR}
+make install DESTDIR="" PREFIX=${SYMBIYOSYS_DESTDIR}
 cd .. #yosys
 
 cd SymbiYosys
@@ -96,7 +96,7 @@ cd z3
 python scripts/mk_make.py
 cd build
 make -j$(nproc)
-make install DESTDIR=${SYMBIYOSYS_DESTDIR}
+make install DESTDIR="" PREFIX=${SYMBIYOSYS_DESTDIR}
 cd .. #build
 cd .. #z3
 
